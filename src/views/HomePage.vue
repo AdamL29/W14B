@@ -1,8 +1,12 @@
 <template>
     <div>
-        <h1>Home Test</h1>
+        <h1>Welcome, Please Sign In</h1>
         <router-link to="/game" @click="goGame">Game</router-link>
-        
+        <div>
+            <input type="email">
+            <input type="password">
+            <button @click="goGame">Submit</button>
+        </div>
     </div>
 </template>
 
@@ -16,10 +20,14 @@ import router from '@/router';
         methods: {
             goGame() {
                 axios.request({
-                url : 'https://reqres.in/',
-                method: "GET" 
+                url : 'https://reqres.in/api/login',
+                method: "POST",
+                data: {
+                    email : 'test@gmail.com',
+                    password : 'testing'
+                }
                 }).then((response)=>{
-                    cookies.set(response);
+                    cookies.set(response.value);
                     router.push('/game');
                 }).catch((error)=>{
                     console.log(error);
